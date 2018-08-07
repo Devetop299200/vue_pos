@@ -23,10 +23,14 @@
             <div slot="tip" class="el-upload__tip">Upload jpg/png , no more than 500kb</div>
           </el-upload>
 
-          <div>
+          <!-- <div>
+            <video id="wistia_simple_video_261" crossorigin="anonymous" poster="https://fast.wistia.com/assets/images/blank.gif" src="https://www.ansible.com/398aafc6-56e2-4ae1-a01a-1fd83c51fe6c" controlslist="nodownload" playsinline="" preload="metadata" type="video/m3u8" x-webkit-airplay="allow" style="background: transparent; display: block; height: 100%; max-height: none; max-width: none; position: static; visibility: visible; width: 100%; object-fit: contain;"></video>
+          </div> -->
+
+          <!-- <div>
             <iframe src="https://v.yongjiujiexi.com/20180707/vXTX6aGD/index.m3u8" marginwidth="0" marginheight="0" border="0" scrolling="no" frameborder="0" topmargin="0" width="100%" height="500">
             </iframe>
-          </div>
+          </div> -->
         </div>
 
         
@@ -65,7 +69,10 @@ export default {
       }
     };
   },
-  created: function() {},
+  created () {
+    console.log('created ----------------->')
+    this.goDownload()
+  },
   methods: {
     // getOptions: function(){
 
@@ -98,7 +105,34 @@ export default {
     handleUploadError(err, file, fileList) {
       console.log("handleUploadError", err);
       Notification.error("图片上传失败，请重新尝试");
-    }
+    },
+    goDownload () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1;
+            var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+            // 这里是安卓浏览器
+            if (isAndroid) {
+                window.location.href = 'https://www.baidu.com/'; // 跳安卓端下载地址,此处用百度地址作为测试地址
+            }
+            // 这里是iOS浏览器
+            if (isIOS) {
+                window.location.href = 'http://www.sohu.com/'; // 跳AppStore下载地址，此处用搜狐地址作为测试地址
+            }
+
+
+            // 是微信内部webView
+            if (this.is_weixn()) {
+                alert("请点击右上角按钮, 点击使用浏览器打开");
+            }
+    },
+    is_weixn() {
+            var ua = navigator.userAgent.toLowerCase();
+            if (ua.match(/MicroMessenger/i) == "micromessenger") {
+                return true;
+            } else {
+                return false;
+            }
+        }
   }
 };
 </script>
